@@ -1,4 +1,5 @@
-'use strict';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images = [
   {
@@ -66,9 +67,9 @@ const images = [
   },
 ];
 
-const gallery = document.body.querySelector('ul.gallery');
+const galleryBild = document.body.querySelector('ul.gallery');
 
-gallery.append(
+galleryBild.append(
   ...images.map(({ preview, original, description }) => {
     preview = preview.slice(1, -1);
     original = original.slice(1, -1);
@@ -86,34 +87,42 @@ gallery.append(
 
     img.className = 'gallery-image';
     img.src = preview;
-    img.setAttribute('data-source', original);
     img.alt = description;
 
     return li;
   })
 );
 
-gallery.addEventListener('click', item => {
-  item.preventDefault();
-
-  //продемонстрований на лекції item.target === item.target.currentTarget - не спрацює
-  //він не захистить від кліків наприклад пробілу чи Tab, а зображення всеодно займає всю область.
-  if (item.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  const instance = basicLightbox.create(
-    `<img src="${item.target.dataset.source}" alt='${item.target.alt}' width="1112" height="640">`
-  );
-
-  instance.show();
-  //подію закриття є сенс слухати тільки якщо зроблено клік
-  document.addEventListener('keyup', ({ code }) => {
-    console.log(code);
-    if (code !== 'Escape') {
-      return;
-    }
-
-    instance.close();
-  });
+let gallery = new SimpleLightbox('.gallery a');
+gallery.on('show.simplelightbox', function () {
+  // do something…
 });
+
+gallery.on('error.simplelightbox', function (e) {
+  console.log(e); // some usefull information
+});
+
+// gallery.addEventListener('click', item => {
+//   item.preventDefault();
+
+//   //продемонстрований на лекції item.target === item.target.currentTarget - не спрацює
+//   //він не захистить від кліків наприклад пробілу чи Tab, а зображення всеодно займає всю область.
+//   if (item.target.nodeName !== 'IMG') {
+//     return;
+//   }
+
+//   const instance = basicLightbox.create(
+//     `<img src="${item.target.dataset.source}" alt='${item.target.alt}' width="1112" height="640">`
+//   );
+
+//   instance.show();
+//   //подію закриття є сенс слухати тільки якщо зроблено клік
+//   document.addEventListener('keyup', ({ code }) => {
+//     console.log(code);
+//     if (code !== 'Escape') {
+//       return;
+//     }
+
+//     instance.close();
+//   });
+// });
