@@ -39,6 +39,10 @@ img {
   max-width: 100%;
 }
 
+.go-to-home {
+  margin: 0 auto;
+}
+
 .gallery {
   display: flex;
   justify-content: center;
@@ -52,10 +56,6 @@ img {
 
 .gallery-item {
   width: calc((100% - 48px) / 3);
-}
-
-.gallery-link {
-  cursor: url('../img/hand.svg'), pointer;
 }
 
 .gallery-image {
