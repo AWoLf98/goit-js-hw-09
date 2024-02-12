@@ -13,25 +13,25 @@ const textareaFormFeedback = document.querySelector(
 writeFieldsForm();
 
 function writeFieldsForm() {
-  if (!objFeedback) {
-    feedbackFormState.email = '';
-    feedbackFormState.message = '';
-  } else {
+  if (objFeedback) {
     feedbackFormState = JSON.parse(objFeedback);
     inputFormFeedback.value = feedbackFormState.email;
     textareaFormFeedback.value = feedbackFormState.message;
+  } else {
+    feedbackFormState.email = '';
+    feedbackFormState.message = '';
   }
 }
 
 feedbackForm.addEventListener('input', event => {
-  const nodeName = event.target.nodeName;
-
-  if (nodeName === 'INPUT') {
-    feedbackFormState.email = event.target.value.trim();
-  } else if (nodeName === 'TEXTAREA') {
-    feedbackFormState.message = event.target.value.trim();
+  switch (event.target.nodeName) {
+    case 'INPUT':
+      feedbackFormState.email = event.target.value.trim();
+      break;
+    case 'TEXTAREA':
+      feedbackFormState.message = event.target.value.trim();
+      break;
   }
-
   window.localStorage.setItem(F_F_STATE, JSON.stringify(feedbackFormState));
 });
 
@@ -39,9 +39,8 @@ feedbackForm.addEventListener('submit', event => {
   event.preventDefault();
 
   if (inputFormFeedback.value.trim() || textareaFormFeedback.value.trim()) {
-    inputFormFeedback.value = '';
-    textareaFormFeedback.value = '';
     console.log(JSON.parse(localStorage.getItem(F_F_STATE)));
     localStorage.removeItem(F_F_STATE);
   } else alert('Bad parameter');
+  feedbackForm.reset();
 });
