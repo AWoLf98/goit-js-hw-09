@@ -93,7 +93,7 @@ galleryBild.append(
   })
 );
 
-let gallery = new SimpleLightbox('.gallery a', {
+const gallery = new SimpleLightbox('.gallery a', {
   overlayOpacity: 0.8,
   captionsData: 'alt',
   captionDelay: 250,
@@ -103,12 +103,12 @@ gallery.on('shown.simplelightbox', function () {
   const overlay = document.body.querySelector('.sl-overlay');
   const counter = document.querySelector('.sl-counter');
   const closeButton = document.querySelector('.sl-close');
-  const arrowButton = document.querySelectorAll('.sl-navigation button');
+  const arrowButtons = document.querySelectorAll('.sl-navigation button');
 
   overlay.style.backgroundColor = '#242424';
   counter.style.color = '#fff';
   counter.style.top = '16px';
   counter.style.fontFamily = 'Montserrat';
   closeButton.style.color = '#fff';
-  arrowButton.forEach(item => (item.style.color = '#fff'));
+  arrowButtons.forEach(item => (item.style.color = '#fff'));
 });

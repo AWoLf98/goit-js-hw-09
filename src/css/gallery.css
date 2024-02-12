@@ -29,10 +29,6 @@ img {
   max-width: 100%;
 }
 
-.go-to-home {
-  margin: 0 auto;
-}
-
 .gallery {
   display: flex;
   justify-content: center;
